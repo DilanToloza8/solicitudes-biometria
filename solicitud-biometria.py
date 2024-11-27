@@ -18,14 +18,16 @@ try:
 except Exception as e:
     print("El contenedor ya existe o hubo un error:", e)
 
-# Carpetas locales para almacenar datos
-CARPETA_INICIOS_SESION = "Inicios de sesion"
-CARPETA_REGISTRO_USUARIOS = "Registro de usuarios"
-CARPETA_SOLICITUDES = r"C:\Users\Dilan\Desktop\solicitud Biometria\Solicitudes"
+# Obtener el directorio actual donde se encuentra el archivo .py
+directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
+# Crear las carpetas locales dentro del directorio actual
+CARPETA_INICIOS_SESION = os.path.join(directorio_actual, "Inicios de sesion")
+CARPETA_REGISTRO_USUARIOS = os.path.join(directorio_actual, "Registro de usuarios")
+
+# Crear las carpetas si no existen
 os.makedirs(CARPETA_INICIOS_SESION, exist_ok=True)
 os.makedirs(CARPETA_REGISTRO_USUARIOS, exist_ok=True)
-os.makedirs(CARPETA_SOLICITUDES, exist_ok=True)
 
 usuario_actual = None  # Almacena la información del usuario logueado
 
@@ -208,16 +210,15 @@ def mostrar_menu_principal():
     menu_principal.title("Menú Principal")
     menu_principal.geometry("300x200")
 
-    tk.Button(menu_principal, text="Solicitud", command=abrir_seccion_solicitud).pack(pady=10)
-    tk.Button(menu_principal, text="POR VER").pack(pady=10)
+    tk.Button(menu_principal, text="Solicitar", command=abrir_seccion_solicitud).pack(pady=10)
+    tk.Button(menu_principal, text="Cerrar sesión", command=menu_principal.destroy).pack(pady=10)
 
 # Ventana principal
 root = tk.Tk()
-root.title("Sistema de Registro y Solicitudes")
-root.geometry("400x300")
+root.title("Aplicación de Registro y Solicitudes")
+root.geometry("300x200")
 
-# Botones para iniciar sesión y registrarse
-tk.Button(root, text="Iniciar sesión", command=abrir_inicio_sesion).pack(pady=20)
+tk.Button(root, text="Iniciar sesión", command=abrir_inicio_sesion).pack(pady=10)
 tk.Button(root, text="Registrar usuario", command=abrir_registro).pack(pady=10)
 
 root.mainloop()
